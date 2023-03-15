@@ -33,7 +33,14 @@ const app = initializeApp(firebaseConfig);
 const { getStorage, ref, uploadBytes } = require("firebase/storage");
 
 const storage = getStorage();
-
+server.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 server.use(cors());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
