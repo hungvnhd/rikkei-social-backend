@@ -46,9 +46,13 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(morgan("dev"));
 server.use(cookieParser("secret"));
-
+server.all("/", function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 server.get("/", (req, res) => {
-  res.redirect("/auth/register");
+  res.send("api rikkeisocial");
 });
 server.use("/auth", authRoutes);
 server.use("/user", userRoutes);
